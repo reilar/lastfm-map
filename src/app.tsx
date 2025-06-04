@@ -18,23 +18,29 @@ const App = () => {
 	};
 
 	function handleSubmit() {
-		if (userName != null && (userName as string).length > 1 && (userName as string).length < 16)
-			handleMapData(userName);
-		else
-			console.log("Enter correct user name.");
+		const validUserName = /^[a-zA-Z0-9_-]{2,30}$/.test(userName.trim());	
+		if (validUserName) {
+			handleMapData(userName.trim());
+		} else {
+			console.log("Enter a valid username.");
+		}
 	};
 
 	async function handleMapData(userName: string) {
 		setLoading(true);
-		const mapData = await getMapData(userName);
-		setData(mapData);
+		try {
+			const mapData = await getMapData(userName);
+ 			setData(mapData);
+		} catch (error) {
+        	console.log("Failed to fetch map data:", error);
+    	}
 		setLoading(false);
 	}
  
 	return (
 		<div className="content">
 			<div className="userData">
-				<input type="text" onChange={ handleChange } defaultValue="Enter Last.fm user name" onFocus={(e) => e.target.value = ""} required />
+				<input type="text" onChange={handleChange} placeholder="Enter Last.fm user name" onFocus={(e) => e.target.value = ""} required />
 				<input type="submit" value="GO" onClick={handleSubmit} />
 				<img src={loader} className={"loaderImage " + (loading ? 'show' : 'hide')} alt="Loading" />
 			</div>
