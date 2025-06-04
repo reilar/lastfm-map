@@ -2,12 +2,23 @@ import { LastFmResponse } from './types_lastfm.ts';
 import { MusicBrainzResponse } from './types_musicbrainz.ts';
 
 export async function getMapData(lastFmUserName: string) {
-	const lastFmApiKey = "API_KEY";
+	
+	// Only allow alphanumeric, underscore, hyphen, 2-30 chars
+	const sanitizedUserName = lastFmUserName.trim();
+	const validUserName = /^[a-zA-Z0-9_-]{2,30}$/.test(sanitizedUserName);
+	if (!validUserName) {
+		throw new Error("Invalid Last.fm username.");
+	}
+
+	const lastFmApiKey = "API_KEY";	
 	const lastFmEndpoint = `https://ws.audioscrobbler.com/2.0/?method=library.getartists&user=${lastFmUserName}&api_key=${lastFmApiKey}&limit=10&format=json`;
 	const mapData: (string | number)[][] = [];
 
 	const fetchApi = async <T>(url: string): Promise<T> => {
 		const response = await fetch(url)
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
 		return await response.json();
 	}
 
