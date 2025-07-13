@@ -7,14 +7,15 @@ This app will display a world map with countries of top ten bands that a user li
 ## Technical details
 
 The app is using ReactJS with TypeScript and Vite.
-GoogleMaps API is used to visualize the world map chart.
-Last.fm API is used to find a user's top bands.
-MusicBrainz API is used to find country of origin.
+Using the following external APIs:
+
+-   GoogleMaps API to visualize the world map chart
+-   Last.fm API to find a user's top bands
+-   MusicBrainz API to find country of origin
 
 ## Prerequisites
 
-A Google Maps API Key is needed.
-A Last.fm API Key is needed.
+A Google Maps API Key and Last.fm API Key is needed.
 Please refer to corresponding API pages for information on how to obtain personal keys.
 
 ## How to start
