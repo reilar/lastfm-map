@@ -1,6 +1,7 @@
 import {defineConfig} from 'vite';
 
-export default defineConfig(() => {
-  return {
-  };
+export default defineConfig({
+	server: {
+		port: 5173,
+	},
 });
