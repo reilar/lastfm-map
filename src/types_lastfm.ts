@@ -1,5 +1,7 @@
 export interface LastFmResponse {
 	artists: Artists;
+	error?: number;
+	message?: string;
 }
 
 export interface Artists {
